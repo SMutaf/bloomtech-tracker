@@ -2,7 +2,9 @@ using BloomTech.Api.Repositories;
 using BloomTech.Core.Interfaces;
 using BloomTech.Data.Context;
 using BloomTech.Data.Repositories;
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
+using Hangfire.Storage.SQLite;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection"),
         b => b.MigrationsAssembly("BloomTech.Data")
     ));
+
+builder.Services.AddHangfire(config => config
+    .UseSimpleAssemblyNameTypeSerializer()
+    .UseRecommendedSerializerSettings()
+    .UseSQLiteStorage("Data Source=hangfire.db;"));
+
+builder.Services.AddHangfireServer();
 
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<INewsRepository, NewsRepository>();
@@ -36,6 +45,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseHangfireDashboard();
 
 app.MapControllers();
 
