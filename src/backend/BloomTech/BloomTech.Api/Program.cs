@@ -1,5 +1,6 @@
-using BloomTech.Api.Data;
 using Microsoft.EntityFrameworkCore;
+using BloomTech.Data.Context;
+using BloomTech.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        b => b.MigrationsAssembly("BloomTech.Data")
+    ));
+
 
 var app = builder.Build();
 

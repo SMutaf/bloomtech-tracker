@@ -1,7 +1,7 @@
 ﻿using BloomTech.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace BloomTech.Api.Data
+namespace BloomTech.Data.Context
 {
     public class AppDbContext : DbContext
     {

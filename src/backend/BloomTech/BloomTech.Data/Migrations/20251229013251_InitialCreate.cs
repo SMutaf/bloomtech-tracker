@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BloomTech.Api.Migrations
+namespace BloomTech.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialArchitecture : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
