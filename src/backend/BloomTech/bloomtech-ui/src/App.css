@@ -1,0 +1,32 @@
+/* App.css */
+body {
+  background-color: #000000 !important; /* !important ile Bootstrap'i eziyoruz */
+  color: #e0e0e0 !important;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  min-height: 100vh;
+}
+
+.terminal-card {
+  background-color: #111;
+  border: 1px solid #333;
+  border-radius: 0;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.1); /* Hafif yeşil neon parlama */
+}
+
+.text-neon-green {
+  color: #00ff00;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.text-neon-red {
+  color: #ff3333;
+  text-shadow: 0 0 5px rgba(255, 51, 51, 0.5);
+}
+
+/* Tablo çizgilerini koyulaştır */
+.table {
+  color: #e0e0e0;
+}
+.table-dark {
+  background-color: #111;
+}
