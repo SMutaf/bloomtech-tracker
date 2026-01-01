@@ -39,8 +39,8 @@ builder.Services.AddHangfireServer();
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<IInsiderRepository, InsiderRepository>();
-
 builder.Services.AddHttpClient<IFinanceService, YahooFinanceService>();
+builder.Services.AddScoped<INewsService, GoogleNewsService>();
 
 
 var app = builder.Build();
@@ -69,6 +69,12 @@ using (var scope = app.Services.CreateScope())
         "fetch-mrna-price",
         job => job.ProcessStockData(),
         Cron.Minutely // Test için her dakika. Sonra 5 dakikada 1 olucak.
+    );
+
+    recurringJobManager.AddOrUpdate<RecurringNewsJob>(
+        "fetch-mrna-news",
+        job => job.ProcessNews(),
+        Cron.MinuteInterval(15) // Her 15 dakikada bir
     );
 }
 
