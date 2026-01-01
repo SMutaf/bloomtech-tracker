@@ -41,6 +41,7 @@ builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<IInsiderRepository, InsiderRepository>();
 builder.Services.AddHttpClient<IFinanceService, YahooFinanceService>();
 builder.Services.AddScoped<INewsService, GoogleNewsService>();
+builder.Services.AddScoped<IInsiderService, SecEdgarService>();
 
 
 var app = builder.Build();
@@ -75,6 +76,12 @@ using (var scope = app.Services.CreateScope())
         "fetch-mrna-news",
         job => job.ProcessNews(),
         Cron.MinuteInterval(15) // Her 15 dakikada bir
+    );
+
+    recurringJobManager.AddOrUpdate<RecurringInsiderJob>(
+        "fetch-mrna-insider",
+        job => job.ProcessInsiderTrades(),
+        Cron.Hourly // saat baþý
     );
 }
 
