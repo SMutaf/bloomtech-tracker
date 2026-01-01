@@ -8,31 +8,26 @@ namespace BloomTech.Data.Services
     {
         private readonly HttpClient _httpClient;
 
-        public YahooFinanceService()
+        public YahooFinanceService(HttpClient httpClient)
         {
-            _httpClient = new HttpClient();
+            _httpClient = httpClient;
         }
 
         public async Task<StockData> GetRealTimeDataAsync(string symbol)
         {
-            // Yahoo Finance'in resmi olmayan JSON endpoint'i
-            // Bu URL, hisse senedi verisini JSON olarak döner.
+            _httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
+
             string url = $"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?interval=1d";
 
             try
             {
-                // 1. İsteği at
                 var response = await _httpClient.GetStringAsync(url);
-
-                // 2. JSON'u parse et
                 var json = JObject.Parse(response);
 
-                // 3. Karmaşık JSON içinden fiyatı bul (Path: chart.result[0].meta.regularMarketPrice)
                 var result = json["chart"]["result"][0];
                 var price = result["meta"]["regularMarketPrice"].Value<decimal>();
                 var volume = result["meta"]["regularMarketVolume"]?.Value<long>() ?? 0;
 
-                // 4. StockData nesnesini oluştur ve döndür
                 return new StockData
                 {
                     Price = price,
@@ -42,7 +37,6 @@ namespace BloomTech.Data.Services
             }
             catch (Exception ex)
             {
-                // Hata olursa loglanabilir, şimdilik null veya hata fırlatıyoruz
                 Console.WriteLine($"Yahoo Finance Hatası: {ex.Message}");
                 throw;
             }
