@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BloomTech.Core.Entities
 {
-    // PDF'teki tablo ismi: Insider Trades 
     [Table("InsiderTrades")]
     public class InsiderTrade
     {
@@ -18,7 +17,8 @@ namespace BloomTech.Core.Entities
         public string Name { get; set; } = string.Empty; // İşlemi yapan kişi
         public string Type { get; set; } = string.Empty; // Buy, Sell, Option Exercise
         public long Shares { get; set; } // İşlem adedi
-        public decimal Amount { get; set; } // İşlem tutarı ($)
+        public decimal Amount { get; set; } // İşlem tutarı (dolar)
         public DateTime TransactionDate { get; set; } // İşlem tarihi
+        public string Url { get; set; } = string.Empty;
     }
 }

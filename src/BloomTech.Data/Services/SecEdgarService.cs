@@ -50,7 +50,8 @@ namespace BloomTech.Data.Services
                         TransactionDate = transactionDate,
                         Type = type,
                         Shares = 0, // XML'de sayı yok
-                        Amount = 0  // XML'de tutar yok
+                        Amount = 0, // XML'de tutar yok
+                        Url = item.Links.FirstOrDefault()?.Uri.ToString()
                     });
                 }
             }

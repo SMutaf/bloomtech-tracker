@@ -97,9 +97,32 @@ function App() {
               <tbody>
                 {insiderData.map((trade, index) => (
                   <tr key={index}>
-                    <td className="text-neon-green">{new Date(trade.transactionDate).toLocaleDateString()}</td>
-                    <td>{trade.name}</td>
-                    <td>{trade.type}</td>
+                    {/* Tarih */}
+                    <td className="text-neon-green font-monospace">
+                      {new Date(trade.transactionDate).toLocaleDateString()}
+                    </td>
+
+                    {/* İsim - LİNK VARSA TIKLANABİLİR YAP */}
+                    <td className="text-white">
+                      {trade.url ? (
+                        <a 
+                          href={trade.url} 
+                          target="_blank" 
+                          rel="noreferrer" 
+                          className="text-white text-decoration-none hover-effect"
+                          style={{borderBottom: '1px dotted #666'}} // Altı noktalı çizgi stili
+                        >
+                          {trade.name} <span style={{fontSize: '0.7em', color: '#00ff00'}}>↗</span>
+                        </a>
+                      ) : (
+                        trade.name
+                      )}
+                    </td>
+
+                    {/* Tip (Form 4) */}
+                    <td className="text-info">
+                       {trade.type}
+                    </td>
                   </tr>
                 ))}
               </tbody>

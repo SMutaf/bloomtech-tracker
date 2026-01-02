@@ -1,4 +1,4 @@
-using BloomTech.Api.Jobs;
+ï»¿using BloomTech.Api.Jobs;
 using BloomTech.Api.Repositories;
 using BloomTech.Core.Interfaces;
 using BloomTech.Data.Context;
@@ -63,13 +63,27 @@ app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.EnsureCreated();
+
+    if (!context.Companies.Any(c => c.Symbol == "MRNA"))
+    {
+        context.Companies.Add(new BloomTech.Core.Entities.Company
+        {
+            Symbol = "MRNA",
+            Name = "Moderna Inc.",
+            Sector = "Biotechnology"
+        });
+        context.SaveChanges();
+        Console.WriteLine(" Moderna (MRNA) ÅŸirketi veritabanÄ±na eklendi.");
+    }
     var recurringJobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
 
-    //  dakikada bir çalýþýyor (Test için).
+    //  dakikada bir Ã§alÄ±ÅŸÄ±yor (Test iÃ§in).
     recurringJobManager.AddOrUpdate<RecurringStockJob>(
         "fetch-mrna-price",
         job => job.ProcessStockData(),
-        Cron.Minutely // Test için her dakika. Sonra 5 dakikada 1 olucak.
+        Cron.Minutely // Test iÃ§in her dakika. Sonra 5 dakikada 1 olucak.
     );
 
     recurringJobManager.AddOrUpdate<RecurringNewsJob>(
@@ -81,7 +95,7 @@ using (var scope = app.Services.CreateScope())
     recurringJobManager.AddOrUpdate<RecurringInsiderJob>(
         "fetch-mrna-insider",
         job => job.ProcessInsiderTrades(),
-        Cron.Hourly // saat baþý
+        Cron.Hourly // saat baÅŸÄ±
     );
 }
 
