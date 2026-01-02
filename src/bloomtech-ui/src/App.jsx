@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import PriceChart from './PriceChart';
 
 function App() {
   // Verileri tutacak "Kutular" (State)
@@ -122,6 +123,15 @@ function App() {
         </div>
       )}
       {/* -------------------------------------------------- */}
+      {/* --- GRAFİK BÖLÜMÜ ---*/}
+      {stockData.length > 0 && (
+        <div className="row mb-4">
+          <div className="col-12">
+            {/* Veriyi (stockData) PriceChart bileşenine gönderiyoruz */}
+            <PriceChart data={stockData} />
+          </div>
+        </div>
+      )}
 
       <div className="row">
         {/* SOL KOLON: Haberler */}

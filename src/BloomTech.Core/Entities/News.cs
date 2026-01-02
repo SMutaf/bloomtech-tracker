@@ -14,11 +14,9 @@ namespace BloomTech.Core.Entities
         public Company Company { get; set; }
 
         public string Title { get; set; } = string.Empty;
-        public string Source { get; set; } = string.Empty; // Yahoo, Reuters vs.
+        public string Source { get; set; } = string.Empty; // Yahoo
         public string Url { get; set; } = string.Empty;
         public DateTime PublishedDate { get; set; }
 
-        // İleride Python ile dolduracağımız alan:
-        public double SentimentScore { get; set; } // -1 (Kötü) ile +1 (İyi) arası
     }
 }

@@ -83,7 +83,7 @@ using (var scope = app.Services.CreateScope())
     recurringJobManager.AddOrUpdate<RecurringStockJob>(
         "fetch-mrna-price",
         job => job.ProcessStockData(),
-        Cron.Minutely // Test için her dakika. Sonra 5 dakikada 1 olucak.
+        Cron.Hourly 
     );
 
     recurringJobManager.AddOrUpdate<RecurringNewsJob>(
