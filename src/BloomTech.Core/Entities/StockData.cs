@@ -10,7 +10,7 @@ namespace BloomTech.Core.Entities
     {
         public int Id { get; set; }
 
-        // Hangi şirkete ait? (Foreign Key)
+        // Hangi şirkete ait (Foreign Key)
         public int CompanyId { get; set; }
         public Company Company { get; set; }
 
