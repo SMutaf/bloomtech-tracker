@@ -15,7 +15,10 @@ namespace BloomTech.Core.Entities
         public Company Company { get; set; }
 
         public decimal Price { get; set; }
-        public long Volume { get; set; } // Hacim büyük olabilir, long kullanıyoruz
+        public decimal Open { get; set; }   // Açılış
+        public decimal High { get; set; }   // Günün En Yükseği
+        public decimal Low { get; set; }    // Günün En Düşüğü
+        public long Volume { get; set; }
         public DateTime Timestamp { get; set; } // Verinin çekildiği an
     }
 }
