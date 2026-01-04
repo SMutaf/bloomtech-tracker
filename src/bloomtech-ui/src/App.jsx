@@ -5,7 +5,7 @@ import './App.css';
 import PriceChart from './PriceChart';
 
 function App() {
-  // Verileri tutacak "Kutular" (State)
+  // Verileri tutacak (State)
   const [stockData, setStockData] = useState([]);
   const [newsData, setNewsData] = useState([]);
   const [insiderData, setInsiderData] = useState([]);
@@ -44,7 +44,7 @@ function App() {
 
   }, []);
 
-  // --- BURASI YENİ: HESAPLAMALAR ---
+  // Yeni Hesaplamalar
   // Eski "latestPrice" kısmını sildik, yerine bunu koyduk.
   const currentData = stockData.length > 0 ? stockData[0] : {};
   const prevData = stockData.length > 1 ? stockData[1] : {};
@@ -69,7 +69,7 @@ function App() {
            <h2 className={`m-0 ${trendColor}`}>
              MRNA: ${currentPrice.toFixed(2)}
            </h2>
-           <small className="text-muted">MODERNA INC.</small>
+           <small style={{color: '#9ca3af', display: 'block'}}>MODERNA INC.</small>
         </div>
       </div>
       
@@ -79,9 +79,9 @@ function App() {
           <div className="col-12">
             <div className="terminal-card p-3 d-flex justify-content-around align-items-center text-center">
               
-              {/* 1. KUTU: GÜNLÜK DEĞİŞİM */}
+              {/* GÜNLÜK DEĞİŞİM */}
               <div>
-                <small className="text-muted d-block">DAILY CHANGE</small>
+              <small className="d-block" style={{color: '#9ca3af'}}>DAILY CHANGE</small>
                 <span className={`fs-5 fw-bold ${trendColor}`}>
                   {priceChange >= 0 ? "+" : ""}{priceChange.toFixed(2)} ({percentChange.toFixed(2)}%)
                 </span>
@@ -90,9 +90,9 @@ function App() {
               {/* Dikey Çizgi */}
               <div className="border-end border-secondary" style={{height: '40px'}}></div>
 
-              {/* 2. KUTU: GÜNÜN ARALIĞI (High/Low) */}
+              {/* GÜNÜN ARALIĞI (High/Low) */}
               <div>
-                <small className="text-muted d-block">DAY RANGE (L - H)</small>
+                <small className="d-block" style={{color: '#9ca3af'}}>DAY RANGE (L - H)</small>
                 <span className="text-white fs-5 font-monospace">
                   {currentData.low?.toFixed(2)} - {currentData.high?.toFixed(2)}
                 </span>
@@ -100,9 +100,9 @@ function App() {
 
               <div className="border-end border-secondary" style={{height: '40px'}}></div>
 
-              {/* 3. KUTU: AÇILIŞ (Open) */}
+              {/* AÇILIŞ (Open) */}
               <div>
-                <small className="text-muted d-block">OPEN</small>
+                <small className="d-block" style={{color: '#9ca3af'}}>OPEN</small>
                 <span className="text-white fs-5 font-monospace">
                   {currentData.open?.toFixed(2)}
                 </span>
@@ -110,9 +110,9 @@ function App() {
 
               <div className="border-end border-secondary" style={{height: '40px'}}></div>
 
-              {/* 4. KUTU: HACİM (Volume) */}
+              {/* HACİM (Volume) */}
               <div>
-                <small className="text-muted d-block">VOLUME</small>
+                <small className="d-block" style={{color: '#9ca3af'}}>VOLUME</small>
                 <span className="text-info fs-5 font-monospace">
                   {(currentData.volume / 1000000).toFixed(2)}M
                 </span>
@@ -145,7 +145,7 @@ function App() {
                     <a href={news.url} target="_blank" rel="noreferrer" className="text-decoration-none text-white d-block hover-effect">
                       <span className="text-neon-green">[{new Date(news.publishedDate).toLocaleDateString()}]</span> {news.title}
                     </a>
-                    <small className="text-muted">{news.source}</small>
+                    <small style={{color: '#9ca3af'}}>{news.source}</small>
                   </li>
                 ))}
               </ul>
